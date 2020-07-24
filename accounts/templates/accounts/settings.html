@@ -1,0 +1,36 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+    <br>
+    {% for message in messages %}
+        <div class="alert alert-{{message.level_tag}}" role="alert">
+        <h6 class="alert-heading">
+            {{ message.message }}
+        </h6>
+        </div>
+    {% endfor %}
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-md-center">Account Settings</h5><hr>
+              <a name="" id="" class="btn btn-warning btn-sm btn-block" href="{% url 'user' %}" role="button">&#8592; Back to Profile</a><br>
+              <img src="{{ request.user.customer.profile_pic.url }}" class="img-fluid img-thumbnail" width="150" height="150" alt="profile picture"><br><br>
+              <a name="" id="" class="btn btn-outline-danger btn-sm btn-block" href="#" role="button">Delete Account</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Update Account</h5><hr>
+              <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-info btn-md" value="Update">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

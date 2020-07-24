@@ -1,0 +1,19 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <form action="{% url 'delete_customer' customer.id %}" method="POST">
+                {% csrf_token %}
+                <h4>Are you sure you want to delete {{ customer }} ?</h4>
+                <a href="{% url 'home' %}" class="btn btn-md btn-warning">Cancel</a>
+                <input type="submit" class="btn btn-md btn-danger" value="Delete">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+{% include 'accounts/status.html' %}
+    <br>
+    {% for message in messages %}
+      <div class="alert alert-{{message.level_tag}}" role="alert">
+        <h4 class="alert-heading">
+          {{ message.message }}
+        </h4>
+      </div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-md">
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-sm">
+                <a
+                  name=""
+                  id=""
+                  class="btn btn-primary btn-sm btn-block"
+                  href="{% url 'create_order' request.user.customer.id %}"
+                  role="button"
+                >
+                  Place Order
+                </a>
+                  <tr>
+                      <th>Product</th>
+                      <th>Category</th>
+                      <th>Date Ordered</th>
+                      <th>Status</th>
+                      <th>Update</th>
+                      <th>Remove</th>
+                  </tr>
+                  {% if orders %}
+                    {% for order in orders %}
+                      <tr>
+                        <td>{{ order.product.name }}</td>
+                        <td>{{ order.product.category }}</td>
+                        <td>{{ order.date_created }}</td>
+                        <td>{{ order.status }}</td>
+                        <td><a href="{% url 'update_order' order.id %}" class="btn btn-sm btn-info">Update</a></td>
+                        <td><a href="{% url 'delete_order' order.id %}" class="btn btn-sm btn-danger">Remove</a></td>
+                      </tr>
+                    {% endfor %}
+                    {% else %}
+                      <tr>
+                        <td>None</td>
+                        <td>None</td>
+                        <td>None</td>
+                        <td>None</td>
+                        <td><a href="#" class="btn btn-sm btn-info" style="cursor: not-allowed;">Update</a></td>
+                        <td><a href="#" class="btn btn-sm btn-danger" style="cursor: not-allowed;">Remove</a></td>
+                      </tr>
+                  {% endif %}
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock %}
